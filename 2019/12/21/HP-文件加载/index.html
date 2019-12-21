@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>about · WuHJg&#39;s Blog.</title>
+    <title>PHP 文件加载 · WuHJg&#39;s Blog.</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,7 +203,7 @@
 </head>
 
     
-        <body class="about-body">
+        <body class="post-body">
     
     
 <header class="header">
@@ -211,6 +211,15 @@
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >WuHJg&#39;s Blog.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">PHP 文件加载</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>WuHJg's Blog.</a>
 </header>
@@ -229,23 +238,61 @@ height:50vh;
     <!-- 主页  -->
     
     
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/about-bg.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            about
+            PHP 文件加载
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">517</span>Reading time: <span class="post-count reading-time">1 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/12/21</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -346,12 +393,59 @@ height:50vh;
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <!-- 不可以删除，否则会调用post的layout  -->
-<main class="main about-page">
+            <main class="main post-page">
     <article class="article-entry">
-        <p>！！</p>
+        <h2 id="PHP-文件加载"><a href="#PHP-文件加载" class="headerlink" title="PHP 文件加载"></a>PHP 文件加载</h2><p>文件加载的含义 </p>
+<p>含义：将一个（别的）文件包含到当前文件中，成为当前文件运行过程中的一部分。<br>通常，一些公共的代码，在多个页面都需要用到的时候，会做成一个独立的文件。<br>然后在不同的页面需要用到的时候，直接载入进来就可以了。</p>
+<p>语法：<br>include “要载入的文件路径”; //可以是相对路径，或本地物理路径。</p>
+<p>说明：<br>可以载入 php 文件，也可以载入 html 文件。 </p>
+<p>示例： </p>
+<p>  原理：载入一个文件的本质是：将被载入的文件“插入”到当前载入代码所在的位置。</p>
+<h3 id="文件加载的四种方式"><a href="#文件加载的四种方式" class="headerlink" title="文件加载的四种方式"></a>文件加载的四种方式</h3><p> 四种方式如下所示：</p>
+<p> include ‘要加载的文件’； </p>
+<p> include_once ‘要加载的文件’； </p>
+<p> require ‘要加载的文件’； </p>
+<p> require_once ‘要加载的文件’； </p>
+<p> 其中，“要加载的文件”，是一个文件路径，可以是相对路径，也可以是物理路径，或直接文件名：<br> 相对路径：<br> ‘./文件名’;<br> ‘./dir1/文件名’;<br> ‘./dir1/dir2/文件名’;<br> ‘../文件名’;<br> ‘../dir1/文件名’;<br> ‘../../dir1/dir2/文件名’; 等等。。。<br> 物理路径：<br> ‘c:/itcast/class/php66/day4/文件名’; //window 系统<br> ‘/path1/path2/文件名’; //linux、unix 等系统</p>
+<p> 获取物理路径（绝对路径）的方式：<br> <strong>DIR</strong>：表示当前文件所在路径，由它可以构建出绝对路径；<br> getcwd()：表示当前正访问的网页路径，由它也可以构建出绝对路径； </p>
+<p> 非相对非绝对路径（其实就是没有给出路径，只给出文件名）：不推荐！<br> 形式为： include ‘文件名’；<br> 此时，会按如下顺序去寻找该文件：<br> 1，先在 php.ini 中 include_path 项设定的目录中寻找该文件；<br> 2，如果上一步没有找到，就在当前工作目录（由 getcwd()获取）下寻找该文件；<br> 3，如果上一步没有找到，就在当前载入语句的文件所在目录（由<strong>DIR</strong>获取）下寻找；<br> 4，如果上一步还是没有找到，就报错了</p>
 
     </article>
+    <!-- license  -->
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2019/12/21/HP%E6%95%B0%E7%BB%84/" title= "PHP数组">
+                    <div class="nextTitle">PHP数组</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2019/12/21/HP%E5%87%BD%E6%95%B0/" title= "PHP函数">
+                    <div class="prevTitle">PHP函数</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -436,6 +530,24 @@ height:50vh;
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP-文件加载"><span class="toc-number">1.</span> <span class="toc-text">PHP 文件加载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#文件加载的四种方式"><span class="toc-number">1.1.</span> <span class="toc-text">文件加载的四种方式</span></a></li></ol></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -755,6 +867,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>

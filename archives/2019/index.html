@@ -346,30 +346,63 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2019/11/20/PHP%E5%8F%98%E9%87%8F/" >
+        <a class="abstract-title" href = "/2019/12/21/YSQL-%E5%87%BD%E6%95%B0%EF%BC%88%E4%B8%89%EF%BC%89/" >
             
-                <span>PHP变量</span>
+                <span>MYSQL 函数（三）</span>
         </a>
         <div class="abstract-content">
-            
-title: PHP变量PHP 变量1.含义与定义形式使用一个“标记符号”（标识符），代表某个数据
+            MYSQL 函数（三）MySQL DATE_ADD() 函数定义和用法DATE_ADD() 函数向日期添加指定的时间间隔。
+语法
+1DATE_ADD(date,INTERVAL expr type)
 
-定义形式： $变量名 = 具体的数据;ps:变量名区分大小写
-举例： $v1 = 123;这里的=,不是数学上的等于，而是赋值的意思其本质含义是：将123这个数据放到v1这个变量里去。
-2.变量的命名规则
+date 参数是合法的日期表达式。expr 参数是您希望添加的时间间隔。
+type 参数可以是下列值：
 
-1. 基本规则  就是给一个变量命名的时候要遵循的的规则。
 
-构成：字母、数字、下划线；
-开头：字母或下划线；
-变量名不要跟系统中的语法所用单词重复
 
-2. 行业规则通常，尽量将变量命名为“见名知意”。尽量用更容易理解的单词（或拼音）去表示一个数据，很多时候可以使用“多个单词（拼音...
+Type 值
+
+
+
+MICROSECOND
+
+
+SECOND
+
+
+MINUTE
+
+
+HOUR
+
+
+DAY
+
+
+WEEK
+
+
+MONTH
+
+
+QUARTER
+
+
+YEAR
+
+
+SECOND_MICROSECOND
+
+
+MINUTE_MICROSECOND
+
+
+MINUTE_SECON...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/11/20</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/12/21</span>
             </div>
             <!-- tags  -->
             
@@ -382,27 +415,24 @@ title: PHP变量PHP 变量1.含义与定义形式使用一个“标记符号”�
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2019/11/20/PHP-1/" >
+        <a class="abstract-title" href = "/2019/12/21/Mysql%E5%9F%BA%E7%A1%80%E9%83%A8%E5%88%86%EF%BC%88%E4%BA%8C%EF%BC%89/" >
             
-                <span>PHP基本语法</span>
+                <span>Mysql基础部分（二）</span>
         </a>
         <div class="abstract-content">
-            PHP 基本语法规则1. PHP 标记标记 PHP 语言，是一种可以嵌入到“html”代码中的后台处理语言（程序） 有以下几种标记形式，只推荐第一种。
-&lt;?php php 代码写在这里..... ?&gt; 
-      这是推荐写法！
+            MYSQL基础部分（二）MySQL where 子句MySQL where 子句
+我们知道从MySQL表中使用SQL SELECT 语句来读取数据。
+如需有条件地从表中选取数据，可将 WHERE 子句添加到 SELECT 语句中。
+语法
+以下是SQL SELECT 语句使用 WHERE 子句从数据表中读取数据的通用语法：
+12SELECT field1, field2,...fieldN FROM table_name1, table_name2...[WHERE condition1 [AND [OR]] condition2.....
 
-
-&lt;? php 代码写在这里..... ?&gt; 
-&lt;script language=”php” &gt; php 代码写在这里..... &lt;/script&gt;
-
-
-
-&lt;? php 代码写在这里..... ?&gt; 需要到 php.ini 中进行配置：short_open_tag = On //默认为 Off，表示...
+查询语句中你可以使用一个或者多个表，表之间使用...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/11/20</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/12/21</span>
             </div>
             <!-- tags  -->
             
@@ -415,23 +445,229 @@ title: PHP变量PHP 变量1.含义与定义形式使用一个“标记符号”�
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2019/11/15/hello-world/" >
+        <a class="abstract-title" href = "/2019/12/21/ysql-%E5%9F%BA%E7%A1%80%E9%83%A8%E5%88%86-%E4%B8%80/" >
             
-                <span>Hello World</span>
+                <span>Mysql 基础部分(一)</span>
         </a>
         <div class="abstract-content">
-            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick StartCreate a new post1$ hexo new "My New Post"
+            Mysql 基础部分(一)MySQL PHP 语法MySQL 可应用于多种语言，包括 PERL, C, C++, JAVA 和 PHP。 在这些语言中，MySQL在PHP的web开发中是应用最广泛。
+在本教程中我们大部分实例都采用了PHP语言。如果你想了解MySQL在PHP中的应用，可以访问我们的 PHP中使用MySQL介绍。
+PHP提供了多种方式来访问和操作MySQL数据库记录。PHP Mysqli函数格式如下：
+1mysqli_function(value,value,...);
 
-More info: Writing
-Run server1$ hexo server
-
-Mo...
+以上格式中 function 部分描述了 MySQL 函数的功能，如
+1234567mysqli_co...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/11/15</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/12/21</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/12/21/HP%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" >
+            
+                <span>PHP文件操作</span>
+        </a>
+        <div class="abstract-content">
+            PHP文件操作1、打开及关闭文件resource fopen  ( string $filename  , string $mode  [, bool $use_include_path  = false  [, resource $context  ]] )
+
+
+
+mode
+说明
+
+
+
+‘r’
+只读方式打开，将文件指针指向文件头。
+
+
+‘r+’|读写方式打开，将文件指针指向文件头。
+‘w’|写入方式打开，将文件指针指向文件头并将文件大小截为零。如果文件不存在则尝试创建之。
+‘w+’|读写方式打开，将文件指针指向文件头并将文件大小截为零。如果文件不存在则尝试创建之。
+‘a’|追加方式打开...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/12/21</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/12/21/HP-%E8%A1%A8%E5%8D%95/" >
+            
+                <span>PHP 表单 </span>
+        </a>
+        <div class="abstract-content">
+            PHP 表单PHP表单处理PHP 超全局变量 $_GET 和 $_POST 用于收集表单数据（form-data）。
+PHP - 一个简单的 HTML 表单下面的例子显示了一个简单的 HTML 表单，它包含两个输入字段和一个提交按钮：
+实例
+12345678910111213141516171819202122232425262728293031323334&lt;html&gt;&lt;body&gt;&lt;form action="welcome.php" method="post"&gt;Name: &lt;input type="text" name="name"&gt;&lt...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/12/21</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/12/21/PHP-%E8%B6%85%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F/" >
+            
+                <span>PHP 超全局变量  </span>
+        </a>
+        <div class="abstract-content">
+            PHP 超全局变量超全局变量在 PHP 4.1.0 中引入，是在全部作用域中始终可用的内置变量。
+PHP 中的许多预定义变量都是“超全局的”，这意味着它们在一个脚本的全部作用域中都可用。在函数或方法中无需执行 global $variable; 就可以访问它们。
+这些超全局变量是：
+
+$GLOBALS
+$_SERVER
+$_REQUEST
+$_POST
+$_GET
+$_FILES
+$_ENV
+$_COOKIE
+$_SESSION
+
+$GLOBALS — 引用全局作用域中可用的全部变量$GLOBALS 这种全局变量用于在 PHP 脚本中的任意位置访问全局变量（从函数或方法中均可）。
+PHP...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/12/21</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/12/21/HP%E6%95%B0%E7%BB%84/" >
+            
+                <span>PHP数组</span>
+        </a>
+        <div class="abstract-content">
+            PHP 数组数组的概念和定义 数组，是指将若干数据按一定的顺序组合为一个整体。 每个数据被称为一个“单元”——数组单元。 每个单元由两部分构成：下标和值，下标也称为“键”（key）， 数组的一个重要特点是：其中的数据有明确的顺序，而是，是其放入数组时的先后顺序。 数组有如下几种定义形式： 形式 1： $arr1 = array(单元 1，单元 2，…）； 形式 2： $arr2 = [单元 1，单元 2，…]； 单元（元素）的形式为： [下标=&gt;]值 形式 3：（不推荐） $arr3[下标 1] = 值 1； $arr3[下标 2] = 值 2； …… 数据取值的语法形式： $数组...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/12/21</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/12/21/HP-%E6%96%87%E4%BB%B6%E5%8A%A0%E8%BD%BD/" >
+            
+                <span>PHP 文件加载</span>
+        </a>
+        <div class="abstract-content">
+            PHP 文件加载文件加载的含义 
+含义：将一个（别的）文件包含到当前文件中，成为当前文件运行过程中的一部分。通常，一些公共的代码，在多个页面都需要用到的时候，会做成一个独立的文件。然后在不同的页面需要用到的时候，直接载入进来就可以了。
+语法：include “要载入的文件路径”; //可以是相对路径，或本地物理路径。
+说明：可以载入 php 文件，也可以载入 html 文件。 
+示例： 
+  原理：载入一个文件的本质是：将被载入的文件“插入”到当前载入代码所在的位置。
+文件加载的四种方式 四种方式如下所示：
+ include ‘要加载的文件’； 
+ include_once ‘要加载的文...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/12/21</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/12/21/HP%E5%87%BD%E6%95%B0/" >
+            
+                <span>PHP函数</span>
+        </a>
+        <div class="abstract-content">
+            PHP 函数1.函数的概念与作用函数不是数！函数是一种代码形式（语法形式）。函数是将“若干行代码”以一种语法形式包装成的一个整体。该整体可以做到“需要的时候就去执行它”（就是执行其中的若干行代码）。函数是解决在不同情形（不同代码位置）下需要执行相同代码的有效方式——即所谓代码重用。函数通常用于“专业的事由专业的人来做”这种现实世界的常见现象。比如油条摊：专门做油条，顾客随时需要，就随时可以买（付钱就可以）。比如轮胎厂：专门生产不同型号轮胎，汽车制造厂随时需要就随时提供（付钱）。比如豆浆机：专门制作豆浆，人们随时需要豆浆就随时可以启动豆浆机制作豆浆（提供豆子和水）。  
+2.函数的定义与调...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/12/21</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/12/21/HP-%E8%AF%AD%E5%8F%A5/" >
+            
+                <span>PHP 语句</span>
+        </a>
+        <div class="abstract-content">
+            PHP 语句1. if语句形式 1：单分支 
+if ( 条件判断 ）{//如果条件满足(true)，就执行这里}实例
+1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798991001011021031041051061071081091101111121131141151...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/12/21</span>
             </div>
             <!-- tags  -->
             
@@ -439,6 +675,10 @@ Mo...
     </article>
     
     <!-- paginator  -->
+    
+    <nav class="page-nav">
+        <span class="page-number current">1</span><a class="page-number" href="/archives/2019/page/2/">2</a><a class="extend next" rel="next" href="/archives/2019/page/2/">NEXT &amp;#62;</a>
+    </nav>
     
 </main>
             <!-- profile -->
@@ -562,9 +802,134 @@ Mo...
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 3
+        Total : 14
         </div>
         <!-- search  -->
         
@@ -577,6 +942,61 @@ Mo...
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span><a class="archive-post-title" href= "/2019/12/21/HP-%E8%AF%AD%E5%8F%A5/" >PHP 语句</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span><a class="archive-post-title" href= "/2019/12/21/HP%E5%87%BD%E6%95%B0/" >PHP函数</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span><a class="archive-post-title" href= "/2019/12/21/HP%E6%95%B0%E7%BB%84/" >PHP数组</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span><a class="archive-post-title" href= "/2019/12/21/PHP-%E8%B6%85%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F/" >PHP 超全局变量  </a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span><a class="archive-post-title" href= "/2019/12/21/ntitled/" >PHP常量---运算符</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span><a class="archive-post-title" href= "/2019/12/21/HP-%E6%96%87%E4%BB%B6%E5%8A%A0%E8%BD%BD/" >PHP 文件加载</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span><a class="archive-post-title" href= "/2019/12/21/HP-%E8%A1%A8%E5%8D%95/" >PHP 表单 </a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span><a class="archive-post-title" href= "/2019/12/21/HP%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" >PHP文件操作</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span><a class="archive-post-title" href= "/2019/12/21/ysql-%E5%9F%BA%E7%A1%80%E9%83%A8%E5%88%86-%E4%B8%80/" >Mysql 基础部分(一)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span><a class="archive-post-title" href= "/2019/12/21/Mysql%E5%9F%BA%E7%A1%80%E9%83%A8%E5%88%86%EF%BC%88%E4%BA%8C%EF%BC%89/" >Mysql基础部分（二）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span><a class="archive-post-title" href= "/2019/12/21/YSQL-%E5%87%BD%E6%95%B0%EF%BC%88%E4%B8%89%EF%BC%89/" >MYSQL 函数（三）</a>
+        </li>
     
     
         <li class="archive-post-item">

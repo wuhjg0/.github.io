@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>PHP变量 · WuHJg&#39;s Blog.</title>
+    <title>PHP 超全局变量   · WuHJg&#39;s Blog.</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/" >WuHJg&#39;s Blog.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">PHP变量</a>
+                <a href="#" class="post-name">PHP 超全局变量  </a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            PHP变量
+            PHP 超全局变量  
             <!-- 404 -->
             
         </h1>
@@ -266,12 +266,12 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">1.3k</span>Reading time: <span class="post-count reading-time">4 min</span></span>
+                        <span>Word count: <span class="post-count word-count">1.4k</span>Reading time: <span class="post-count reading-time">5 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/11/20</span>
+                    <span class="post-intro-time">2019/12/21</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -395,70 +395,142 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="PHP-变量"><a href="#PHP-变量" class="headerlink" title="PHP 变量"></a>PHP 变量</h2><h3 id="1-含义与定义形式"><a href="#1-含义与定义形式" class="headerlink" title="1.含义与定义形式"></a>1.含义与定义形式</h3><p>使用一个“标记符号”（标识符），代表某个数据</p>
+        <h2 id="PHP-超全局变量"><a href="#PHP-超全局变量" class="headerlink" title="PHP 超全局变量"></a>PHP 超全局变量</h2><p>超全局变量在 PHP 4.1.0 中引入，是在全部作用域中始终可用的内置变量。</p>
+<p>PHP 中的许多预定义变量都是“超全局的”，这意味着它们在一个脚本的全部作用域中都可用。在函数或方法中无需执行 global $variable; 就可以访问它们。</p>
+<p>这些超全局变量是：</p>
 <ul>
-<li><p>定义形式： $变量名 = 具体的数据;<br><em>ps:变量名区分大小写</em></p>
-<p>举例： $v1 = 123;<br>这里的=,不是数学上的等于，而是赋值的意思<br>其本质含义是：将123这个数据放到v1这个变量里去。</p>
-<h3 id="2-变量的命名规则"><a href="#2-变量的命名规则" class="headerlink" title="2.变量的命名规则"></a>2.变量的命名规则</h3></li>
+<li>$GLOBALS</li>
+<li>$_SERVER</li>
+<li>$_REQUEST</li>
+<li>$_POST</li>
+<li>$_GET</li>
+<li>$_FILES</li>
+<li>$_ENV</li>
+<li>$_COOKIE</li>
+<li>$_SESSION</li>
 </ul>
-<h5 id="1-基本规则"><a href="#1-基本规则" class="headerlink" title="1. 基本规则"></a>1. 基本规则</h5><p>  就是给一个变量命名的时候要遵循的的规则。</p>
-<ol>
-<li>构成：字母、数字、下划线；</li>
-<li>开头：字母或下划线；</li>
-<li>变量名不要跟系统中的语法所用单词重复</li>
-</ol>
-<h5 id="2-行业规则"><a href="#2-行业规则" class="headerlink" title="2. 行业规则"></a>2. 行业规则</h5><p>通常，尽量将变量命名为“见名知意”。<br>尽量用更容易理解的单词（或拼音）去表示一个数据，很多时候可以使用“多个单词（拼音）”。<br>比如：</p>
-<ol>
-<li>ChildAge, YungerAge, ParentHouse, MyParentHouse, MyParentHousePrice 此时，通常有两个行业中的惯例规则： <br></li>
-<li>骆驼命名法（小驼峰命名法）：第一个单词首字母小写，其余单词首字母大写。 childAge, yungerAge, parentHouse, myParentHouse, myParentHousePrice <br></li>
-<li>帕斯卡命名法（大驼峰命名法）：所有单词都首字母大写。 ChildAge, YungerAge, ParentHouse, MyParentHouse, MyParentHousePrice</li>
-</ol>
-<h3 id="3-变量的4中基本操作"><a href="#3-变量的4中基本操作" class="headerlink" title="3.变量的4中基本操作"></a>3.变量的4中基本操作</h3><p>任何一个变量，有且只有4种对变量的”操作”</p>
-<ol>
-<li>赋值–常见操作<br>将一个数据（值）放入一个变量中。<br>$name = “111”;<br>几乎所有变量想要后续正常使用，第一件事就是”赋值”。<br>变量初始赋值后，可以后续再去重新赋值–这就是修改了变量的值，比如：<br>$name = “666”;<br>变量赋值的本质是：将变量名，跟一个数据“建立联系”<br></li>
-<li>取值–常见操作<br>取值 就是从变量中拿到其中存储的数据（值）<br>凡是使用到变量，并在该位置上，需要一个数据的时候就会用到取值<br></li>
-<li>判断变量isset()<br>判断一个“变量名”是否里面存储了数据<br>判断的结果是：true（表示有） ，false（表示没有）<br>使用这个语法来判断：isset(变量名)；</li>
-</ol>
-<p>还有一个特殊赋值，赋值后，变量中也没有数据<br>$name = null;<br> null是一个特殊的数据，该数据的含义是：没有数据<br>所以判断 isset($name) 结果是“false”<br><br><br>4. 删除变量unset()<br>当一个变量中存储了数据，也可以去删除它，语法如下<br>unset($变量名)<br><em>删除变量的本质是：断开变量名跟其关联过的数据之间的联系</em><br>删除后 insset()判断结果为false 。</p>
-<h3 id="4-变量传值（重点）"><a href="#4-变量传值（重点）" class="headerlink" title="4.变量传值（重点）"></a>4.变量传值（重点）</h3><h5 id="1-含义："><a href="#1-含义：" class="headerlink" title="1.含义："></a>1.含义：</h5><p>是指，将一个变量的值“传递”给另一个变量的方式问题。 形式上，就是一个变量在等号左边，一个变量在等号右边，就表示将右边变量的值传给左边的变量。 有且只有两种传数据的方式：值传递，和引用传递。<br><br></p>
-<h5 id="2-值传递"><a href="#2-值传递" class="headerlink" title="2.值传递"></a>2.值传递</h5><p>就是将右边的变量数据本身，复制一份，然后赋值给左边变量<br>如下：</p>
-<pre><code class="bash"><span class="variable">$name</span> = <span class="variable">$1</span>;
-<span class="variable">$name2</span> = <span class="variable">$name</span>;</code></pre>
-<p>值传递之后，两个变量互不影响，互相独立。</p>
-<p>代码如下：</p>
-<p><img src="/2019/11/20/PHP%E5%8F%98%E9%87%8F/pasted-1.png" alt="1"></p>
-<br>
+<h4 id="GLOBALS-—-引用全局作用域中可用的全部变量"><a href="#GLOBALS-—-引用全局作用域中可用的全部变量" class="headerlink" title="$GLOBALS — 引用全局作用域中可用的全部变量"></a>$GLOBALS — 引用全局作用域中可用的全部变量</h4><p>$GLOBALS 这种全局变量用于在 PHP 脚本中的任意位置访问全局变量（从函数或方法中均可）。</p>
+<p>PHP 在名为 $GLOBALS[index] 的数组中存储了所有全局变量。变量的名字就是数组的键。</p>
+<p>下面的例子展示了如何使用超级全局变量 $GLOBALS：</p>
+<p>实例</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">$x = <span class="number">75</span>; </span><br><span class="line">$y = <span class="number">25</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addition</span><span class="params">()</span> </span>&#123; </span><br><span class="line">  $GLOBALS[<span class="string">'z'</span>] = $GLOBALS[<span class="string">'x'</span>] + $GLOBALS[<span class="string">'y'</span>]; </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">addition(); </span><br><span class="line"><span class="keyword">echo</span> $z; </span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line">```````` </span><br><span class="line">在上面的例子中，由于 z 是 $GLOBALS 数组中的变量，因此在函数之外也可以访问它。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#### PHP $_SERVER</span></span><br><span class="line"></span><br><span class="line">$_SERVER 这种超全局变量保存关于报头、路径和脚本位置的信息。</span><br><span class="line"></span><br><span class="line">下面的例子展示了如何使用 $_SERVER 中的某些元素：</span><br><span class="line"></span><br><span class="line">实例</span><br><span class="line">``````PHP</span><br><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="keyword">echo</span> $_SERVER[<span class="string">'PHP_SELF'</span>];</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>;</span><br><span class="line"><span class="keyword">echo</span> $_SERVER[<span class="string">'SERVER_NAME'</span>];</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>;</span><br><span class="line"><span class="keyword">echo</span> $_SERVER[<span class="string">'HTTP_HOST'</span>];</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>;</span><br><span class="line"><span class="keyword">echo</span> $_SERVER[<span class="string">'HTTP_REFERER'</span>];</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>;</span><br><span class="line"><span class="keyword">echo</span> $_SERVER[<span class="string">'HTTP_USER_AGENT'</span>];</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>;</span><br><span class="line"><span class="keyword">echo</span> $_SERVER[<span class="string">'SCRIPT_NAME'</span>];</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
 
-<h5 id="3-引用传递："><a href="#3-引用传递：" class="headerlink" title="3.引用传递："></a>3.引用传递：</h5><p>是将右边变量对数据的引用关系，传给左边的变量</p>
-<p>代码<br><img src="/2019/11/20/PHP%E5%8F%98%E9%87%8F/pasted-2.png" alt="1"><br><br></p>
-<h3 id="5-预定义变量"><a href="#5-预定义变量" class="headerlink" title="5.预定义变量"></a>5.预定义变量</h3><p>在PHP语言内部，有一些变量，是现成的直接可以使用，这就是预定义变量 </p>
-<h5 id="4-GET-变量"><a href="#4-GET-变量" class="headerlink" title="4.$_GET 变量"></a>4.$_GET 变量</h5><p>代表浏览器表单通过“get”方式提交的所有数据，可以成为“get数据”也可以理解为：<br>$_GET 变量里面会自动储存 提交到某个文件中的GET数据。<br>而GET数据，是一个页面以“get”方式请求的时候提交的数据。</p>
-<p>代码演示：<br>制做一个表单，有两个输入框，输出数字并提交。<br><img src="/2019/11/20/PHP%E5%8F%98%E9%87%8F/pasted-3.png" alt="1"></p>
-<h5 id="5-POST"><a href="#5-POST" class="headerlink" title="5.$_POST"></a>5.$_POST</h5><p>代表浏览器表单通过“post”方式提交的所有数据，称为POST数据<br>也可以理解为：<br>$_POST 变量里面会“自动存储” 保存/装载提交到某个文件中的POST数据。<br>而POST数据，是在一个表单中以“post”方式提交的数据。</p>
-<p>代码演示：<br><img src="/2019/11/20/PHP%E5%8F%98%E9%87%8F/pasted-4.png" alt="1"></p>
-<p>扩展：<br><img src="/2019/11/20/PHP%E5%8F%98%E9%87%8F/pasted-5.png" alt="1"></p>
-<h5 id="6-REQUEST"><a href="#6-REQUEST" class="headerlink" title="6.$_REQUEST"></a>6.$_REQUEST</h5><p>代表浏览器通过“get”方式或“post” 方式提交的数据的合集。<br>它既能接收到get过来的数据，也能接收到post过来的数据。<br>通常，一个表单，只能提交一种形式的数据，那么get数据，要么是post数据。</p>
-<h6 id="7-SERVER变量"><a href="#7-SERVER变量" class="headerlink" title="7.$_SERVER变量"></a>7.$_SERVER变量</h6><p>它代表任何一次请求中，客户端或服务端的一些“基本信息”或系统信息。<br>常用的有：</p>
-<ul>
-<li>PHP_SELF： 表示当前请求的网页地址（不含域名部分）  </li>
-<li>SERVER_NAME： 表示当前请求的服务器名 </li>
-<li>SERVER_ADDR： 表示当前请求的服务器 IP 地址</li>
-<li>DOCUMENT_ROOT：表示当前请求的网站物理路径（apache 设置站点时那个） </li>
-<li>REMOTE_ADDR： 表示当前请求的客户端的 IP 地址</li>
-<li>SCRIPT_NAME： 表示当前网页地址</li>
-</ul>
-<p>代码演示：<br><img src="/2019/11/20/PHP%E5%8F%98%E9%87%8F/pasted-6.png" alt="1"></p>
-<h3 id="6-可变变量"><a href="#6-可变变量" class="headerlink" title="6.可变变量"></a>6.可变变量</h3><p>含义：变量名本身又是一个“变量”的变量。</p>
-<p>实例：</p>
-<pre><code class="bash"><span class="variable">$v1</span> = 10;
-<span class="built_in">echo</span> <span class="variable">$v1</span>;     //输出10 
-<span class="variable">$str</span> = “v1”;  //这是一个变量，名为 str，值为“v1”（字符串）     
-<span class="built_in">echo</span> $<span class="variable">$str</span>;   
-//输出 10。这里，“$<span class="variable">$str</span>”就是所谓的“可变变量”    
-//相当于 <span class="built_in">echo</span> <span class="variable">$v1</span>; 结果就是 10</code></pre>
-<p>代码演示<br><img src="/2019/11/20/PHP%E5%8F%98%E9%87%8F/pasted-7.png" alt="2"><br><br></p>
+<p>下表列出了您能够在 $_SERVER 中访问的最重要的元素：</p>
+<table>
+<thead>
+<tr>
+<th align="right">元素/代码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">$_SERVER[‘PHP_SELF’]</td>
+<td>返回当前执行脚本的文件名。</td>
+</tr>
+<tr>
+<td align="right">$_SERVER[‘GATEWAY_INTERFACE’]</td>
+<td>返回服务器使用的 CGI 规范的版本。</td>
+</tr>
+<tr>
+<td align="right">$_SERVER[‘SERVER_ADDR’]</td>
+<td>返回当前运行脚本所在的服务器的 IP 地址。</td>
+</tr>
+<tr>
+<td align="right">$_SERVER[‘SERVER_NAME’]</td>
+<td>返回当前运行脚本所在的服务器的主机名（比如 <a href="http://www.w3school.com.cn）。" target="_blank" rel="noopener">www.w3school.com.cn）。</a></td>
+</tr>
+<tr>
+<td align="right">$_SERVER[‘SERVER_SOFTWARE’]</td>
+<td>返回服务器标识字符串（比如 Apache/2.2.24）。</td>
+</tr>
+<tr>
+<td align="right">$_SERVER[‘SERVER_PROTOCOL’]</td>
+<td>返回请求页面时通信协议的名称和版本（例如，“HTTP/1.0”）。</td>
+</tr>
+<tr>
+<td align="right">$_SERVER[‘REQUEST_METHOD’]</td>
+<td>返回访问页面使用的请求方法（例如 POST）。</td>
+</tr>
+<tr>
+<td align="right">$_SERVER[‘REQUEST_TIME’]</td>
+<td>返回请求开始时的时间戳（例如 1577687494）。</td>
+</tr>
+<tr>
+<td align="right">$_SERVER[‘QUERY_STRING’]</td>
+<td>返回查询字符串，如果是通过查询字符串访问此页面。</td>
+</tr>
+<tr>
+<td align="right">$_SERVER[‘HTTP_ACCEPT’]</td>
+<td>返回来自当前请求的请求头。</td>
+</tr>
+<tr>
+<td align="right">$_SERVER[‘HTTP_ACCEPT_CHARSET’]</td>
+<td>返回来自当前请求的 Accept_Charset 头（ 例如 utf-8,ISO-8859-1）</td>
+</tr>
+<tr>
+<td align="right">$_SERVER[‘HTTP_HOST’]</td>
+<td>返回来自当前请求的 Host 头。</td>
+</tr>
+<tr>
+<td align="right">$_SERVER[‘HTTP_REFERER’]</td>
+<td>返回当前页面的完整 URL（不可靠，因为不是所有用户代理都支持）。</td>
+</tr>
+<tr>
+<td align="right">$_SERVER[‘HTTPS’]</td>
+<td>是否通过安全 HTTP 协议查询脚本。</td>
+</tr>
+<tr>
+<td align="right">$_SERVER[‘REMOTE_ADDR’]</td>
+<td>返回浏览当前页面的用户的 IP 地址。</td>
+</tr>
+<tr>
+<td align="right">$_SERVER[‘REMOTE_HOST’]</td>
+<td>返回浏览当前页面的用户的主机名。</td>
+</tr>
+<tr>
+<td align="right">$_SERVER[‘REMOTE_PORT’]</td>
+<td>返回用户机器上连接到 Web 服务器所使用的端口号。</td>
+</tr>
+<tr>
+<td align="right">$_SERVER[‘SCRIPT_FILENAME’]</td>
+<td>返回当前执行脚本的绝对路径。</td>
+</tr>
+<tr>
+<td align="right">$_SERVER[‘SERVER_ADMIN’]</td>
+<td>该值指明了 Apache 服务器配置文件中的 SERVER_ADMIN 参数。</td>
+</tr>
+<tr>
+<td align="right">$_SERVER[‘SERVER_PORT’]</td>
+<td>Web 服务器使用的端口。默认值为 “80”。</td>
+</tr>
+<tr>
+<td align="right">$_SERVER[‘SERVER_SIGNATURE’]</td>
+<td>返回服务器版本和虚拟主机名。</td>
+</tr>
+<tr>
+<td align="right">$_SERVER[‘PATH_TRANSLATED’]</td>
+<td>当前脚本所在文件系统（非文档根目录）的基本路径。</td>
+</tr>
+<tr>
+<td align="right">$_SERVER[‘SCRIPT_NAME’]</td>
+<td>返回当前脚本的路径。</td>
+</tr>
+<tr>
+<td align="right">$_SERVER[‘SCRIPT_URI’]</td>
+<td>返回当前页面的 URI。</td>
+</tr>
+</tbody></table>
+<h4 id="PHP-REQUEST"><a href="#PHP-REQUEST" class="headerlink" title="PHP $_REQUEST"></a>PHP $_REQUEST</h4><p>PHP $_REQUEST 用于收集 HTML 表单提交的数据。</p>
+<p>下面的例子展示了一个包含输入字段及提交按钮的表单。当用户通过点击提交按钮来提交表单数据时, 表单数据将发送到 <form> 标签的 action 属性中指定的脚本文件。在这个例子中，我们指定文件本身来处理表单数据。如果您需要使用其他的 PHP 文件来处理表单数据，请修改为您选择的文件名即可。然后，我们可以使用超级全局变量 $_REQUEST 来收集 input 字段的值：</form></p>
+<p>实例</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;form method=<span class="string">"post"</span> action=<span class="string">"&lt;?php echo $_SERVER['PHP_SELF'];?&gt;"</span>&gt;</span><br><span class="line">Name: &lt;input type=<span class="string">"text"</span> name=<span class="string">"fname"</span>&gt;</span><br><span class="line">&lt;input type=<span class="string">"submit"</span>&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">$name = $_REQUEST[<span class="string">'fname'</span>]; </span><br><span class="line"><span class="keyword">echo</span> $name; </span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 
+
+<h4 id="PHP-POST"><a href="#PHP-POST" class="headerlink" title="PHP $_POST"></a>PHP $_POST</h4><p>PHP $_POST 广泛用于收集提交 method=”post” 的 HTML 表单后的表单数据。$_POST 也常用于传递变量。</p>
+<p>下面的例子展示了一个包含输入字段和提交按钮的表单。当用户点击提交按钮来提交数据后，表单数据会发送到 <form> 标签的 action 属性中指定的文件。在本例中，我们指定文件本身来处理表单数据。如果您希望使用另一个 PHP 页面来处理表单数据，请用更改为您选择的文件名。然后，我们可以使用超全局变量 $_POST 来收集输入字段的值：</form></p>
+<p>实例</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;form method=<span class="string">"post"</span> action=<span class="string">"&lt;?php echo $_SERVER['PHP_SELF'];?&gt;"</span>&gt;</span><br><span class="line">Name: &lt;input type=<span class="string">"text"</span> name=<span class="string">"fname"</span>&gt;</span><br><span class="line">&lt;input type=<span class="string">"submit"</span>&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">$name = $_POST[<span class="string">'fname'</span>];</span><br><span class="line"><span class="keyword">echo</span> $name; </span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line">`````` </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#### PHP $_GET</span></span><br><span class="line"></span><br><span class="line">PHP $_GET 也可用于收集提交 HTML 表单 (method=<span class="string">"get"</span>) 之后的表单数据。</span><br><span class="line"></span><br><span class="line">$_GET 也可以收集 URL 中的发送的数据。</span><br><span class="line"></span><br><span class="line">假设我们有一张页面含有带参数的超链接：</span><br><span class="line"></span><br><span class="line">``````PHP  </span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;a href=<span class="string">"test_get.php?subject=PHP&amp;web=W3school.com.cn"</span>&gt;测试 $GET&lt;/a&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line">当用户点击链接 <span class="string">"测试 $GET"</span>，参数 <span class="string">"subject"</span> 和 <span class="string">"web"</span> 被发送到 <span class="string">"test_get.php"</span>，然后您就能够通过 $_GET 在 <span class="string">"test_get.php"</span> 中访问这些值了。</span><br><span class="line"></span><br><span class="line">下面的例子是 <span class="string">"test_get.php"</span> 中的代码：</span><br><span class="line"></span><br><span class="line">实例</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="keyword">echo</span> <span class="string">"在 "</span> . $_GET[<span class="string">'web'</span>] . <span class="string">" 学习 "</span> . $_GET[<span class="string">'subject'</span>];</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
     </article>
     <!-- license  -->
     
@@ -467,16 +539,16 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/2019/12/21/ntitled/" title= "PHP常量---运算符">
-                    <div class="nextTitle">PHP常量---运算符</div>
+                <a href= "/2019/12/21/HP-%E8%A1%A8%E5%8D%95/" title= "PHP 表单 ">
+                    <div class="nextTitle">PHP 表单 </div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2019/11/20/PHP-1/" title= "PHP基本语法">
-                    <div class="prevTitle">PHP基本语法</div>
+                <a href= "/2019/12/21/HP%E6%95%B0%E7%BB%84/" title= "PHP数组">
+                    <div class="prevTitle">PHP数组</div>
                 </a>
             
         </li>
@@ -595,7 +667,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP-变量"><span class="toc-number">1.</span> <span class="toc-text">PHP 变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-含义与定义形式"><span class="toc-number">1.1.</span> <span class="toc-text">1.含义与定义形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-变量的命名规则"><span class="toc-number">1.2.</span> <span class="toc-text">2.变量的命名规则</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-基本规则"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">1. 基本规则</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-行业规则"><span class="toc-number">1.2.0.2.</span> <span class="toc-text">2. 行业规则</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-变量的4中基本操作"><span class="toc-number">1.3.</span> <span class="toc-text">3.变量的4中基本操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-变量传值（重点）"><span class="toc-number">1.4.</span> <span class="toc-text">4.变量传值（重点）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-含义："><span class="toc-number">1.4.0.1.</span> <span class="toc-text">1.含义：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-值传递"><span class="toc-number">1.4.0.2.</span> <span class="toc-text">2.值传递</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-引用传递："><span class="toc-number">1.4.0.3.</span> <span class="toc-text">3.引用传递：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-预定义变量"><span class="toc-number">1.5.</span> <span class="toc-text">5.预定义变量</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#4-GET-变量"><span class="toc-number">1.5.0.1.</span> <span class="toc-text">4.$_GET 变量</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-POST"><span class="toc-number">1.5.0.2.</span> <span class="toc-text">5.$_POST</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-REQUEST"><span class="toc-number">1.5.0.3.</span> <span class="toc-text">6.$_REQUEST</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#7-SERVER变量"><span class="toc-number">1.5.0.3.1.</span> <span class="toc-text">7.$_SERVER变量</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-可变变量"><span class="toc-number">1.6.</span> <span class="toc-text">6.可变变量</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP-超全局变量"><span class="toc-number">1.</span> <span class="toc-text">PHP 超全局变量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#GLOBALS-—-引用全局作用域中可用的全部变量"><span class="toc-number">1.0.1.</span> <span class="toc-text">$GLOBALS — 引用全局作用域中可用的全部变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PHP-REQUEST"><span class="toc-number">1.0.2.</span> <span class="toc-text">PHP $_REQUEST</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PHP-POST"><span class="toc-number">1.0.3.</span> <span class="toc-text">PHP $_POST</span></a></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>

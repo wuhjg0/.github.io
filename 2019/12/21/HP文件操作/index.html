@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="John Doe">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="John Doe">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>PHP文件操作 · WuHJg&#39;s Blog.</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/favicon.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >WuHJg&#39;s Blog.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">PHP文件操作</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>WuHJg's Blog.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            PHP文件操作
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">2.6k</span>Reading time: <span class="post-count reading-time">11 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/12/21</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="PHP文件操作"><a href="#PHP文件操作" class="headerlink" title="PHP文件操作"></a>PHP文件操作</h2><h3 id="1、打开及关闭文件"><a href="#1、打开及关闭文件" class="headerlink" title="1、打开及关闭文件"></a>1、打开及关闭文件</h3><p>resource fopen  ( string $filename  , string $mode  [, bool $use_include_path  = false  [, resource $context  ]] )</p>
+<table>
+<thead>
+<tr>
+<th align="right">mode</th>
+<th align="right">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">‘r’</td>
+<td align="right">只读方式打开，将文件指针指向文件头。</td>
+</tr>
+</tbody></table>
+<p>‘r+’|读写方式打开，将文件指针指向文件头。</p>
+<p>‘w’|写入方式打开，将文件指针指向文件头并将文件大小截为零。如果文件不存在则尝试创建之。</p>
+<p>‘w+’|读写方式打开，将文件指针指向文件头并将文件大小截为零。如果文件不存在则尝试创建之。</p>
+<p>‘a’|追加方式打开。写入方式打开，将文件指针指向文件末尾。如果文件不存在则尝试创建之。</p>
+<p>‘a+’|追加方式打开。读写方式打开，将文件指针指向文件末尾。如果文件不存在则尝试创建之。</p>
+<p>‘x’|创建并以写入方式打开，将文件指针指向文件头。如果文件已存在，则 fopen() 调用失败并返回 FALSE ，并生成一条 E_WARNING 级别的错误信息。如果文件不存在则尝试创建之。这和给 底层的 open(2) 系统调用指定 O_EXCL|O_CREAT 标记是等价的。</p>
+<p>‘x+’|创建并以读写方式打开，其他的行为和 ‘x’ 一样。</p>
+<p>b|二进制模式，用于与其它模式进行连接，默认方式是二进制模式。</p>
+<p>t|文本文件模式，用于与其它模式进行连接。</p>
+<p><strong>关闭打开的文件：bool fclose  ( resource $handle  )</strong></p>
+ <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    $fileName=<span class="string">'D:\tmp.txt'</span>;</span><br><span class="line">    $handle=fopen($fileName, <span class="string">"rb"</span>);</span><br><span class="line">    <span class="keyword">while</span>(!feof($handle))&#123;</span><br><span class="line">       <span class="keyword">echo</span> fgets($handle);</span><br><span class="line">    &#125;</span><br><span class="line">    fclose($handle);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2、读写文件"><a href="#2、读写文件" class="headerlink" title="2、读写文件"></a>2、读写文件</h3><h4 id="1-取整个文件内容"><a href="#1-取整个文件内容" class="headerlink" title="1.取整个文件内容"></a>1.取整个文件内容</h4><p>reaffile()、file()和file_get_contents()用于读取整个文件内容。使用这三个函数读取文件内容不需要打开关闭文件。</p>
+<ul>
+<li>int readfile ( string $filename [, bool $use_include_path = false [, resource $context ]] )<br>readfile()读取整个文件的内容并写入到缓存中，出错则返回fase。</li>
+</ul>
+<ul>
+<li>array file ( string $filename [, int $flags = 0 [, resource $context ]] )<br>file()函数读取整个文件的内容按行存储到数组中，包括换行符在内。</li>
+</ul>
+<p>可选参数 flags 可以是以下一个或多个常量：</p>
+<p> <strong>FILE_USE_INCLUDE_PATH</strong></p>
+<p>在 include_path 中查找文件。</p>
+<p> <strong>FILE_IGNORE_NEW_LINES</strong></p>
+<p>在数组每个元素的末尾不要添加换行符</p>
+<p> <strong>FILE_SKIP_EMPTY_LINES</strong></p>
+<p>跳过空行</p>
+<p>string file_get_contents ( string $filename [, bool $use_include_path = false [, resource $context [, int $offset = -1 [, int $maxlen ]]]] )</p>
+<p>file_get_contents()将文件内容读入到一个字符串，如果有offset及maxlen参数，则从参数offset指定的位置开始读取长度为maxlen的一个字符串，如果读取失败则返回false。</p>
+<p>实例1：使用readfile()函数</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">    $fileName=<span class="string">'D:\tmp.txt'</span>;</span><br><span class="line"></span><br><span class="line">    readfile($fileName);<span class="comment">//显示所有内容</span></span><br><span class="line"></span><br><span class="line">    $a=readfile($fileName);<span class="comment">//返回总字数并且显示所有内容</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> $a;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<p>实例2：使用file()函数</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">    $fileName=<span class="string">'D:\tmp.txt'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (file_exists($fileName))<span class="comment">//判断文件是否存在</span></span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">       $arr=file($fileName);</span><br><span class="line"></span><br><span class="line">       <span class="keyword">foreach</span> ($arr <span class="keyword">as</span> $value)&#123;<span class="comment">//每次输出一个文本文件的段落</span></span><br><span class="line"></span><br><span class="line">           <span class="keyword">echo</span> $value.<span class="string">'&lt;p&gt;'</span>;</span><br><span class="line"></span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>实例3：使用file_get_contents()函数</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">    $fileName=<span class="string">'D:\tmp.txt'</span>;</span><br><span class="line"></span><br><span class="line">    $strContent=file_get_contents($fileName);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> $strContent;</span><br><span class="line"></span><br><span class="line">    $strContent=file_get_contents($fileName,<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="number">11</span>,<span class="number">20</span>);<span class="comment">//从第11个字符开始读取，读取长度为20（一个汉字占两个字符）</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> $strContent;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">// &lt;= PHP 5</span></span><br><span class="line">$file  =  file_get_contents ( <span class="string">'./people.txt'</span> ,  <span class="keyword">true</span> );</span><br><span class="line"><span class="comment">// &gt; PHP 5</span></span><br><span class="line">$file  =  file_get_contents ( <span class="string">'./people.txt'</span> ,  FILE_USE_INCLUDE_PATH );</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">    $homePage=<span class="string">'http://www.baidu.com/'</span>;</span><br><span class="line"></span><br><span class="line">    $content=file_get_contents($homePage);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> $content;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="2-读取一行数据"><a href="#2-读取一行数据" class="headerlink" title="2.读取一行数据"></a>2.读取一行数据</h4><p>string fgets ( resource $handle [, int $length ] )<br>一次读取一行数据，参数length为读取长度，遇到换行符、EOF或读取了length-1个字符后停止。</p>
+<p>string fgetss ( resource $handle [, int $length [, string $allowable_tags ]] )<br>用于读取一行数据，会过滤掉读取内容中的html和php标记，参数allowable_tags可以设置哪些标记不被去掉。</p>
+<p>实例1 使用fgets()函数</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">    $fileName=<span class="string">'D:\tmp.txt'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(file_exists($fileName))&#123;</span><br><span class="line"></span><br><span class="line">       $handle=fopen($fileName, <span class="string">'rb'</span>);</span><br><span class="line"></span><br><span class="line">       <span class="keyword">while</span>(!feof($handle))&#123;</span><br><span class="line"></span><br><span class="line">           <span class="keyword">echo</span> fgets($handle).<span class="string">'&lt;p&gt;'</span>;</span><br><span class="line"></span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       fclose($handle);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<p>实例2：使用fegtss()函数</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">    $fileName=<span class="string">'D:\tmp.txt'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(file_exists($fileName))&#123;</span><br><span class="line"></span><br><span class="line">       $handle=fopen($fileName, <span class="string">'rb'</span>);</span><br><span class="line"></span><br><span class="line">       <span class="keyword">while</span>(!feof($handle))&#123;</span><br><span class="line"></span><br><span class="line">           <span class="keyword">echo</span> fgetss($handle).<span class="string">'&lt;p&gt;'</span>;</span><br><span class="line"></span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       fclose($handle);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="3-读取一个字符"><a href="#3-读取一个字符" class="headerlink" title="3.读取一个字符"></a>3.读取一个字符</h4><p>string fgetc ( resource $handle )</p>
+<p>从文件中读取一个字符</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">    $fileName=<span class="string">'D:\tmp.txt'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(file_exists($fileName))&#123;</span><br><span class="line"></span><br><span class="line">       $handle=fopen($fileName, <span class="string">'rb'</span>);</span><br><span class="line"></span><br><span class="line">       <span class="keyword">while</span>(<span class="keyword">false</span>!=($chr=fgetc($handle)))&#123;</span><br><span class="line"></span><br><span class="line">           <span class="keyword">echo</span> $chr;</span><br><span class="line"></span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       fclose($handle);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line">`````` </span><br><span class="line"></span><br><span class="line">**注意：使用此方法对于中文来说读取的是乱码**</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="comment">#### 4.读取指定长度的字符</span></span><br><span class="line">string fread ( resource $handle , int $length )</span><br><span class="line"></span><br><span class="line">参数length为要读取的字节数。</span><br><span class="line"></span><br><span class="line">``````php</span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">    $fileName=<span class="string">'D:\tmp.txt'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(file_exists($fileName))&#123;</span><br><span class="line"></span><br><span class="line">       $handle=fopen($fileName, <span class="string">'rb'</span>);</span><br><span class="line"></span><br><span class="line">       <span class="keyword">echo</span> fread($handle, <span class="number">32</span>).<span class="string">'&lt;p&gt;'</span>;<span class="comment">//读取32个字节</span></span><br><span class="line"></span><br><span class="line">       <span class="keyword">echo</span> fread($handle, filesize($fileName));<span class="comment">//读取剩余内容</span></span><br><span class="line"></span><br><span class="line">       fclose($handle);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="3、数据写入文件"><a href="#3、数据写入文件" class="headerlink" title="3、数据写入文件"></a>3、数据写入文件</h3><p><strong>int fwrite ( resource $handle , string $string [, int $length ] )</strong><br>fputs()与fwrite用法完全相同。</p>
+<p>实例：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">    $fileName=<span class="string">'D:\tmp.txt'</span>;</span><br><span class="line"></span><br><span class="line">    $content=<span class="string">'要添加到文件的内容'</span>;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span>(is_writable($fileName))&#123;<span class="comment">//判断文件是否可写</span></span><br><span class="line"></span><br><span class="line">              $handle=fopen($fileName, <span class="string">"a"</span>);</span><br><span class="line"></span><br><span class="line">              <span class="keyword">if</span>(!$handle)</span><br><span class="line"></span><br><span class="line">              &#123;</span><br><span class="line"></span><br><span class="line">                  <span class="keyword">echo</span> <span class="string">'打开文件失败'</span>;</span><br><span class="line"></span><br><span class="line">                  <span class="keyword">exit</span>;</span><br><span class="line"></span><br><span class="line">              &#125;</span><br><span class="line"></span><br><span class="line">              <span class="keyword">if</span> ( fwrite ( $handle ,  $content ) ===  <span class="keyword">FALSE</span> ) &#123;</span><br><span class="line"></span><br><span class="line">                  <span class="keyword">echo</span>  <span class="string">"不能写入到文件  $fileName "</span> ;</span><br><span class="line"></span><br><span class="line">              &#125;</span><br><span class="line"></span><br><span class="line">              <span class="keyword">echo</span> <span class="string">'写入成功'</span>;</span><br><span class="line"></span><br><span class="line">              fclose($handle);</span><br><span class="line"></span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">else</span>&#123;</span><br><span class="line"></span><br><span class="line">           <span class="keyword">echo</span> <span class="string">'不能写入文件'</span>;</span><br><span class="line"></span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<p><strong>int file_put_contents ( string $filename , mixed $data [, int $flags = 0 [, resource $context ]] )</strong><br>flags 的值可以是 以下 flag 使用 OR (|) 运算符进行的组合。</p>
+<table>
+<thead>
+<tr>
+<th align="right">Flag</th>
+<th align="right">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">FILE_USE_INCLUDE_PATH</td>
+<td align="right">在 include 目录里搜索 filename。 更多信息可参见 include_path。</td>
+</tr>
+<tr>
+<td align="right">FILE_APPEND</td>
+<td align="right">如果文件 filename 已经存在，追加数据而不是覆盖。</td>
+</tr>
+<tr>
+<td align="right">LOCK_EX</td>
+<td align="right">在写入时获得一个独占锁。</td>
+</tr>
+</tbody></table>
+<p>实例：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">    $fileName=<span class="string">'D:\tmp.txt'</span>;</span><br><span class="line"></span><br><span class="line">    $content=<span class="string">'要添加到文件的内容'</span>;</span><br><span class="line"></span><br><span class="line">    file_put_contents($fileName, $content,FILE_APPEND|LOCK_EX);<span class="comment">//向文件追加内容并且写入时加锁</span></span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li><p>bool copy ( string $source , string $dest [, resource $context ] )<br>拷贝文件，如果目标文件存在，则会被覆盖</p>
+</li>
+<li><p>bool rename ( string $oldname , string $newname [, resource $context ] )</p>
+</li>
+</ul>
+<p>文件重命名，可以跨驱动器进行操作。</p>
+<ul>
+<li><p>bool unlink ( string $filename [, resource $context ] )<br>删除文件</p>
+</li>
+<li><p>int fileatime ( string $filename )<br>获取文件上次访问时间，返回时间戳</p>
+</li>
+<li><p>int filemtime ( string $filename )<br>返回最后一次修改时间，返回时间戳</p>
+</li>
+<li><p>int filesize ( string $filename )<br>获取文件大小，单位为字节数</p>
+</li>
+<li><p>mixed pathinfo ( string $path [, int $options = PATHINFO_DIRNAME | PATHINFO_BASENAME | PATHINFO_EXTENSION | PATHINFO_FILENAME ] )</p>
+</li>
+</ul>
+<p>返回一个数组包含文件name的路径信息。它们包括： PATHINFO_DIRNAME ， PATHINFO_BASENAME  和 PATHINFO_EXTENSION  或 PATHINFO_FILENAME 。 如果没有指定 options 默认是返回全部的单元。</p>
+<ul>
+<li><p>string realpath ( string $path )<br>返回文件的绝对路径</p>
+</li>
+<li><p>array stat ( string $filename )<br>返回一个数组，包括文件大小、最后修改时间等信息。</p>
+</li>
+</ul>
+<p>实例：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">    $fileName=<span class="string">'D:\tmp.txt'</span>;</span><br><span class="line"></span><br><span class="line">    copy($fileName, <span class="string">'D:\123.txt'</span>);</span><br><span class="line"></span><br><span class="line">    rename($fileName, <span class="string">'D:\12.txt'</span>);</span><br><span class="line"></span><br><span class="line">    unlink(<span class="string">'D:\123.txt'</span>);</span><br><span class="line"></span><br><span class="line">    $lastTime=fileatime($fileName);<span class="comment">//返回时间戳</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'上次访问时间:'</span>.date(<span class="string">'Y-m-d H:i:s'</span>,$lastTime).<span class="string">'&lt;p&gt;'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'上次修改时间:'</span>.date(<span class="string">'Y-m-d H:i:s'</span>,filemtime($fileName)).<span class="string">'&lt;p&gt;'</span>;</span><br><span class="line"></span><br><span class="line">    $size=filesize($fileName);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'文件大小'</span>.$size.<span class="string">'&lt;p&gt;'</span>;</span><br><span class="line"></span><br><span class="line">    $arr=pathinfo($fileName);</span><br><span class="line"></span><br><span class="line">    print_r($arr);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'&lt;p&gt;'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'文件路径:'</span>.$arr[<span class="string">'dirname'</span>].<span class="string">'&lt;p&gt;'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'文件全名:'</span>.$arr[<span class="string">'basename'</span>].<span class="string">'&lt;p&gt;'</span>;<span class="comment">//包括扩展名</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'文件扩展名:'</span>.$arr[<span class="string">'extension'</span>].<span class="string">'&lt;p&gt;'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'文件名:'</span>.$arr[<span class="string">'filename'</span>].<span class="string">'&lt;p&gt;'</span>;<span class="comment">//不包括扩展名</span></span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> realpath(<span class="string">"index.php"</span>);</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line">    $arrInfo=stat($fileName);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">foreach</span> ($arrInfo <span class="keyword">as</span> $key=&gt;$value)&#123;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">echo</span> $key.<span class="string">':'</span>.$value.<span class="string">'&lt;p&gt;'</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="4、目录处理"><a href="#4、目录处理" class="headerlink" title="4、目录处理"></a>4、目录处理</h4><ul>
+<li><p>resource opendir ( string $path [, resource $context ] )<br>打开一个目录</p>
+</li>
+<li><p>void closedir ( resource $dir_handle )<br>关闭打开的目录</p>
+</li>
+<li><p>array scandir ( string $directory [, int $sorting_order [, resource $context ]] )<br>返回一个数组，包括所有文件和目录。</p>
+</li>
+<li><p>bool mkdir ( string $pathname [, int $mode = 0777 [, bool $recursive = false [, resource $context ]]] )<br>新建一个指定的目录</p>
+</li>
+<li><p>bool rmdir ( string $dirname [, resource $context ] )<br>删除指定的目录，目录必须是空的</p>
+</li>
+<li><p>string getcwd ( void )<br>返回当前目录</p>
+</li>
+<li><p>bool chdir ( string $directory )<br>将当前目录改为directory</p>
+</li>
+<li><p>float disk_free_space ( string $directory )<br>返回目录中的可用空间</p>
+</li>
+<li><p>float disk_total_space ( string $directory )<br>返回目录的总空间大小</p>
+</li>
+<li><p>string readdir ([ resource $dir_handle ] )<br>返回目录中的下一个文件的文件名，必须使用opendir()打开目录</p>
+</li>
+<li><p>void rewinddir ( resource $dir_handle )<br>将指定的目录重新指定到目录的开头</p>
+</li>
+</ul>
+<p>实例1：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">    $pathInfo=pathinfo(realpath(<span class="string">"index.php"</span>),PATHINFO_DIRNAME);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (is_dir($pathInfo))&#123;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span>($dire=opendir($pathInfo))&#123;</span><br><span class="line"></span><br><span class="line">           <span class="keyword">echo</span> $dire;</span><br><span class="line"></span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       closedir($dire);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line">    $dir=scandir(<span class="string">"E:\\临时文件"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">foreach</span> ($dir <span class="keyword">as</span> $value)&#123;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">echo</span> $value.<span class="string">'&lt;p&gt;'</span>;</span><br><span class="line"></span><br><span class="line">    &#125;     </span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line">    mkdir(<span class="string">'D:\tmp'</span>);</span><br><span class="line"></span><br><span class="line">    rmdir(<span class="string">'D:\tmp'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> getcwd().<span class="string">'&lt;p&gt;'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'当前目录总空间:'</span>.disk_total_space(getcwd()).<span class="string">'&lt;p&gt;'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'空闲目录大小:'</span>.disk_free_space(getcwd());</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<p>实例2：两种方法遍历目录文件</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">    $handle=opendir(getcwd());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(<span class="keyword">true</span>==($value=readdir($handle)))&#123;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">echo</span> $value.<span class="string">'&lt;p&gt;'</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    $arr=scandir(getcwd());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">foreach</span> ($arr <span class="keyword">as</span> $value)&#123;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">echo</span> $value.<span class="string">'&lt;p&gt;'</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="5、文件高级处理"><a href="#5、文件高级处理" class="headerlink" title="5、文件高级处理"></a>5、文件高级处理</h3><ul>
+<li><p>bool rewind ( resource $handle )<br>将文件的指针设为文件流的开头。如果以追加方式打开，则无论文件指针在何处，总是会追加到文件末尾。</p>
+</li>
+<li><p>int fseek ( resource $handle , int $offset [, int $whence = SEEK_SET ] )<br>offset为指针位置或相对whence参数的偏移量，可以是负值。</p>
+</li>
+</ul>
+<p>whence参数可以取值如下：</p>
+<ol>
+<li><p>SEEK_SET  - 设定位置等于 offset 字节。</p>
+</li>
+<li><p>SEEK_CUR  - 设定位置为当前位置加上 offset。</p>
+</li>
+<li><p>SEEK_END  - 设定位置为文件尾加上 offset。</p>
+</li>
+</ol>
+<p>如果忽略whence参数，则缺省为SEEK_SET.</p>
+<ul>
+<li><p>bool feof ( resource $handle )<br>测试是否到了文件的结束的位置</p>
+</li>
+<li><p>int ftell ( resource $handle )<br>返回文件当前指针的位置</p>
+</li>
+<li><p>bool flock ( resource $handle , int $operation [, int &amp;$wouldblock ] )<br>在向一个文件写入内容时，需要先锁定该文件，以防止其它用户同时修改此文件内容。</p>
+</li>
+</ul>
+<p>operation 可以是以下值之一：</p>
+<ol>
+<li><p>LOCK_SH 取得共享锁定（读取的程序）。 </p>
+</li>
+<li><p>LOCK_EX  取得独占锁定（写入的程序。 </p>
+</li>
+<li><p>LOCK_UN  释放锁定（无论共享或独占）。 </p>
+</li>
+</ol>
+<p>如果不希望 flock()  在锁定时堵塞，则是 LOCK_NB （Windows 上还不支持）。</p>
+<h3 id="6、上传文件"><a href="#6、上传文件" class="headerlink" title="6、上传文件"></a>6、上传文件</h3><p>使用文件上传需要配置php.ini中的一些属性：</p>
+<ul>
+<li>file_upload：设置为on才支持上传文件；</li>
+<li>upload_tmp_dir：上传文件临时目录；</li>
+<li>upload_max_filesize：服务器上传的文件的最大值，以MB为单位，默认为20MB；</li>
+<li>max_execution_time：PHP中一个指令执行的最长时间；</li>
+<li>memory_limit：PHP中一个指令所分配的内存空间，单位为MB。</li>
+</ul>
+<p>如果需要上传超大文件需要修改最后三个属性。</p>
+<p>$_FILES变量存储的上传文件的相关信息。</p>
+<table>
+<thead>
+<tr>
+<th align="right">元素名</th>
+<th align="right">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">$_FILES[filename][name]</td>
+<td align="right">存储了上传文件的文件名，如exam.txt、myDream.jpg等</td>
+</tr>
+</tbody></table>
+<p>$_FILES[filename][size]|存储了上传文件的大小，单位为字节</p>
+<p>$_FILES[filename][type_name]|文件上传时，首先在临时目录中保存一个临时文件。该变量为临时文件。</p>
+<p>$_FILES[filename][type]|上传文件的类型</p>
+<p>$_FILES[filename][error]|存储了上传文件的结果。如果为0则说明上传成功</p>
+<p>bool <strong>move_uploaded_file</strong> ( string $filename , string $destination )</p>
+<p>上传文件到指定位置。在创建表单时，必须设置form表单的enctype=”multipart/form-data”.</p>
+<p>实例：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$uploads_dir  =  <span class="string">'/uploads'</span> ;</span><br><span class="line"><span class="keyword">foreach</span> ( $_FILES [ <span class="string">"pictures"</span> ][ <span class="string">"error"</span> ] <span class="keyword">as</span>  $key  =&gt;  $error ) &#123;</span><br><span class="line">    <span class="keyword">if</span> ( $error  ==  UPLOAD_ERR_OK ) &#123;</span><br><span class="line">         $tmp_name  =  $_FILES [ <span class="string">"pictures"</span> ][ <span class="string">"tmp_name"</span> ][ $key ];</span><br><span class="line">         $name  =  $_FILES [ <span class="string">"pictures"</span> ][ <span class="string">"name"</span> ][ $key ];</span><br><span class="line">         move_uploaded_file ( $tmp_name ,  <span class="string">" $uploads_dir / $name "</span> );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+    </article>
+    <!-- license  -->
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2019/12/21/ysql-%E5%9F%BA%E7%A1%80%E9%83%A8%E5%88%86-%E4%B8%80/" title= "Mysql 基础部分(一)">
+                    <div class="nextTitle">Mysql 基础部分(一)</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2019/12/21/HP-%E8%A1%A8%E5%8D%95/" title= "PHP 表单 ">
+                    <div class="prevTitle">PHP 表单 </div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:1473338449@qq.com" target="_blank" rel="noopener" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/wuhjg0" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP文件操作"><span class="toc-number">1.</span> <span class="toc-text">PHP文件操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、打开及关闭文件"><span class="toc-number">1.1.</span> <span class="toc-text">1、打开及关闭文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、读写文件"><span class="toc-number">1.2.</span> <span class="toc-text">2、读写文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-取整个文件内容"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.取整个文件内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-读取一行数据"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.读取一行数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-读取一个字符"><span class="toc-number">1.2.3.</span> <span class="toc-text">3.读取一个字符</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、数据写入文件"><span class="toc-number">1.3.</span> <span class="toc-text">3、数据写入文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4、目录处理"><span class="toc-number">1.3.1.</span> <span class="toc-text">4、目录处理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、文件高级处理"><span class="toc-number">1.4.</span> <span class="toc-text">5、文件高级处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6、上传文件"><span class="toc-number">1.5.</span> <span class="toc-text">6、上传文件</span></a></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 14
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span><a class="archive-post-title" href= "/2019/12/21/HP-%E8%AF%AD%E5%8F%A5/" >PHP 语句</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span><a class="archive-post-title" href= "/2019/12/21/HP%E5%87%BD%E6%95%B0/" >PHP函数</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span><a class="archive-post-title" href= "/2019/12/21/HP%E6%95%B0%E7%BB%84/" >PHP数组</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span><a class="archive-post-title" href= "/2019/12/21/PHP-%E8%B6%85%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F/" >PHP 超全局变量  </a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span><a class="archive-post-title" href= "/2019/12/21/ntitled/" >PHP常量---运算符</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span><a class="archive-post-title" href= "/2019/12/21/HP-%E6%96%87%E4%BB%B6%E5%8A%A0%E8%BD%BD/" >PHP 文件加载</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span><a class="archive-post-title" href= "/2019/12/21/HP-%E8%A1%A8%E5%8D%95/" >PHP 表单 </a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span><a class="archive-post-title" href= "/2019/12/21/HP%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" >PHP文件操作</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span><a class="archive-post-title" href= "/2019/12/21/ysql-%E5%9F%BA%E7%A1%80%E9%83%A8%E5%88%86-%E4%B8%80/" >Mysql 基础部分(一)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span><a class="archive-post-title" href= "/2019/12/21/Mysql%E5%9F%BA%E7%A1%80%E9%83%A8%E5%88%86%EF%BC%88%E4%BA%8C%EF%BC%89/" >Mysql基础部分（二）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span><a class="archive-post-title" href= "/2019/12/21/YSQL-%E5%87%BD%E6%95%B0%EF%BC%88%E4%B8%89%EF%BC%89/" >MYSQL 函数（三）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/20</span><a class="archive-post-title" href= "/2019/11/20/PHP%E5%8F%98%E9%87%8F/" >PHP变量</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/20</span><a class="archive-post-title" href= "/2019/11/20/PHP-1/" >PHP基本语法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2019/11/15/hello-world/" >Hello World</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "John Doe"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
